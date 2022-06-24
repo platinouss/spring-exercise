@@ -29,35 +29,29 @@ public class RegisterController {
     }
 
     @PostMapping("/add")
-    public String save(@Valid UserDto userDto, BindingResult result, Model m, RedirectAttributes rattr) throws Exception {
+    public String save(@Valid UserDto userDto, BindingResult result, Model m) throws Exception {
         System.out.println("result=" + result);
         System.out.println("user=" + userDto);
 
-        if(result.hasErrors()) {
+        try {
+            if(result.hasErrors()) {
+                throw new Exception("Register Failed");
+            }
+
+            int rowCount = userDao.insertUser(userDto);
+            if(rowCount == 0) {
+                throw new Exception("Register Failed");
+            }
+
+            m.addAttribute("msg", "REG_OK");
+            return "index";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            m.addAttribute(userDto);
+            m.addAttribute("msg", "REG_ERR");
+
             return "registerForm";
         }
-
-        return "index";
-
-//        try {
-//            if(result.hasErrors()) {
-//                throw new Exception("Register Failed");
-//            }
-//
-//            int rowCount = userDao.insertUser(userDto);
-//            if(rowCount == 0) {
-//                throw new Exception("Register Failed");
-//            }
-//
-//            rattr.addFlashAttribute("msg", "REG_OK");
-//            return "index";
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            m.addAttribute(userDto);
-//            m.addAttribute("msg", "REG_ERR");
-//
-//            return "registerForm";
-//        }
     }
 }
