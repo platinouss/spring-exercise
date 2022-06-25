@@ -29,7 +29,7 @@ public class RegisterController {
     }
 
     @PostMapping("/add")
-    public String save(@Valid UserDto userDto, BindingResult result, Model m) throws Exception {
+    public String save(@Valid UserDto userDto, BindingResult result, RedirectAttributes rattr, Model m) throws Exception {
         System.out.println("result=" + result);
         System.out.println("user=" + userDto);
 
@@ -43,13 +43,13 @@ public class RegisterController {
                 throw new Exception("Register Failed");
             }
 
-            m.addAttribute("msg", "REG_OK");
-            return "index";
+            rattr.addFlashAttribute("regMsg", "REG_OK");
+            return "redirect:/";
 
         } catch (Exception e) {
             e.printStackTrace();
             m.addAttribute(userDto);
-            m.addAttribute("msg", "REG_ERR");
+            m.addAttribute("regMsg", "REG_ERR");
 
             return "registerForm";
         }
