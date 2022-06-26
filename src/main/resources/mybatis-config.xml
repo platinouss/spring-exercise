@@ -6,5 +6,6 @@
     <typeAliases>
         <typeAlias alias="UserDto" type="com.platinouss.springEx.domain.UserDto"/>
         <typeAlias alias="BoardDto" type="com.platinouss.springEx.domain.BoardDto"/>
+        <typeAlias alias="SearchCondition" type="com.platinouss.springEx.domain.SearchCondition"/>
     </typeAliases>
 </configuration>
