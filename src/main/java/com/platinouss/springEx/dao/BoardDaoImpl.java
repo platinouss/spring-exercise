@@ -59,4 +59,9 @@ public class BoardDaoImpl implements BoardDao {
     public int searchResultCnt(SearchCondition sc) throws Exception {
         return session.selectOne(namespace + "searchResultCnt", sc);
     }
+
+    @Override
+    public int increaseViewCount(Integer bno) throws Exception {
+        return session.update(namespace + "increaseViewCount", bno);
+    }
 }

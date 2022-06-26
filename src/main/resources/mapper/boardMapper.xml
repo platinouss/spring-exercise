@@ -71,4 +71,10 @@
         <include refid="options"/>
     </select>
 
+    <select id="increaseViewCount" parameterType="int">
+        UPDATE board
+        SET view_cnt = view_cnt + 1
+        WHERE bno = #{bno}
+    </select>
+
 </mapper>
