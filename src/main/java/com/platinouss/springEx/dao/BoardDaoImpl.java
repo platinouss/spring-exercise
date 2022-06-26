@@ -1,11 +1,13 @@
 package com.platinouss.springEx.dao;
 
 import com.platinouss.springEx.domain.BoardDto;
+import com.platinouss.springEx.domain.SearchCondition;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -46,5 +48,15 @@ public class BoardDaoImpl implements BoardDao {
     @Override
     public int deleteAll() throws Exception {
         return session.delete(namespace + "deleteAll");
+    }
+
+    @Override
+    public List<BoardDto> searchSelectPost(SearchCondition sc) throws Exception {
+        return session.selectList(namespace + "searchSelectPost", sc);
+    }
+
+    @Override
+    public int searchResultCnt(SearchCondition sc) throws Exception {
+        return session.selectOne(namespace + "searchResultCnt", sc);
     }
 }
