@@ -15,4 +15,8 @@ public interface BoardService {
     int writePost(BoardDto boardDto) throws Exception;
 
     BoardDto readPost(Integer bno) throws Exception;
+
+    int removePost(Integer bno, String writer) throws Exception;
+
+    int modifyPost(BoardDto boardDto) throws Exception;
 }
